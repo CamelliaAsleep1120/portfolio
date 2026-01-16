@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@猫叉堂 PhantomCat, PROJECT. | 上野圭子のポートフォリオ</title>
+    
+    <!-- Google Fonts: Noto Sans JP (Base) & Shippori Mincho (Alternative for DNP Shuei Nijimi) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Shippori+Mincho:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- CSS Variables & Reset --- */
+        :root {
+            /* Default (旧ダークモードの配色をデフォルトに設定) */
+            --primary: #aebfd0; /* Lighter Blue */
+            --primary-dark: #63829b;
+            --accent: #f0c040;
+            --bg-body: #1a1f24; /* Dark Body */
+            --bg-card: #252b32; /* Dark Card */
+            --text-main: #f0f0f0;
+            --text-muted: #b0b0b0;
+            --text-card: #f0f0f0;
+            --border-color: #3a4550;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            --shadow-hover: 0 10px 15px rgba(0, 0, 0, 0.4);
+            
+            --transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] {
+            /* Switched Mode (旧ライトモード＝ロイヤルブルーの配色を設定) */
+            /* ※属性名はdarkのままですが、見た目は鮮やかなブルーモードになります */
+            --primary: #191970; /* Midnight Blue */
+            --primary-dark: #101050;
+            --accent: #daa520; /* Gold */
+            --bg-body: #4169e1; /* Royal Blue */
+            --bg-card: #ffffff;
+            --text-main: #ffffff;
+            --text-muted: #e6e6e6;
+            --text-card: #333333;
+            --border-color: rgba(255, 255, 255, 0.3);
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            --shadow-hover: 0 10px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Noto Sans JP", sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* --- Components --- */
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            letter-spacing: 0.05em;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: #fff;
+            border: 2px solid var(--primary);
+        }
+
+        .btn-primary:hover {
+            background-color: transparent;
+            color: var(--primary);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: #fff; /* 背景が濃いため白に変更 */
+            border: 2px solid #fff;
+        }
+
+        .btn-outline:hover {
+            background-color: #fff;
+            color: var(--primary);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--text-main); /* 背景に合わせてメインテキスト色（白）を使用 */
+            font-family: 'Shippori Mincho', serif;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent);
+            margin: 15px auto 0;
+        }
+
+        /* --- Header --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            /* Default (Dark) Header */
+            background-color: rgba(26, 31, 36, 0.9);
+            color: var(--text-main);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: var(--shadow);
+            transition: background-color 0.3s ease;
+        }
+
+        [data-theme="dark"] header {
+            /* Switched (Blue/Light) Header */
+            background-color: rgba(255, 255, 255, 0.95);
+            color: var(--text-card);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Shippori Mincho', serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            position: relative;
+            color: inherit; /* 親要素の色を継承 */
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .theme-toggle {
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--primary);
+            background: none;
+            border: none;
+            padding: 5px;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--primary);
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            /* Default (Dark) Hero Background */
+            /* カラーオーバーレイを削除し、画像のみを表示 */
+            background: url('image_background-01.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* パララックス効果 */
+            padding-top: 80px; /* Offset for fixed header */
+        }
+        
+        [data-theme="dark"] .hero {
+            /* Switched (Blue/Light) Hero Background */
+            /* カラーオーバーレイを削除 */
+            background: url('image_background-01.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        /* Decorative background elements */
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: var(--accent);
+            opacity: 0.2;
+            border-radius: 50%;
+            top: 20%;
+            left: 10%;
+            filter: blur(80px);
+            z-index: 0;
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: #000080; /* Darker blue for depth */
+            opacity: 0.3;
+            border-radius: 50%;
+            bottom: 10%;
+            right: 10%;
+            filter: blur(100px);
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Custom Typography for Hero */
+        .brand-name {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+            color: #ffffff; /* 白文字に変更 */
+            width: 100%;
+            max-width: 800px; /* タイトルの最大幅を制限 */
+        }
+
+        .brand-row-1 {
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            flex-wrap: wrap; /* 画面が狭すぎる場合の折り返し */
+            gap: 0.4em;
+            line-height: 1.2;
+            width: 100%;
+            text-align: center;
+        }
+
+        .brand-jp {
+            font-family: "Meiryo", sans-serif;
+            font-weight: bold;
+            font-size: clamp(1rem, 3vw, 2.14rem); /* ベースサイズ */
+            color: var(--text-main);
+            letter-spacing: 0.05em;
+        }
+
+        .brand-en-small {
+            font-family: "Shippori Mincho", serif;
+            font-weight: 400;
+            font-size: clamp(1.2rem, 3.6vw, 2.57rem); /* 日本語より少し大きくしてバランス調整 */
+            letter-spacing: 0.02em;
+        }
+
+        .brand-row-2 {
+            font-family: "Shippori Mincho", serif;
+            font-weight: 400;
+            /* 1行目との幅を合わせるためのサイズ調整（約2.5〜2.6倍） */
+            font-size: clamp(3rem, 9vw, 6.4rem);
+            line-height: 0.9; /* 行間を詰めて一体感を出す */
+            letter-spacing: 0.05em;
+            margin-top: 0.1em;
+            width: 100%;
+            text-align: center;
+            /* わずかに右に寄せて視覚的な重心を調整 */
+            padding-left: 0.1em; 
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            color: var(--text-muted);
+            letter-spacing: 0.15em;
+            font-family: 'Shippori Mincho', serif;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 20px;
+        }
+
+        /* --- About Section --- */
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .profile-img-wrapper {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            margin: 0 auto;
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 5px solid var(--bg-card);
+            box-shadow: var(--shadow);
+            position: relative;
+            z-index: 2;
+            background-color: #e0e6ed;
+        }
+
+        .profile-bg-deco {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid var(--accent);
+            z-index: 1;
+        }
+
+        .about-text h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-main); /* 白に変更 */
+        }
+
+        .about-text p {
+            margin-bottom: 1rem;
+            color: var(--text-muted);
+        }
+
+        .about-highlight {
+            background-color: var(--bg-card);
+            padding: 20px;
+            border-left: 4px solid var(--accent);
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+            box-shadow: var(--shadow);
+            color: var(--text-card); /* カード内テキスト色を適用 */
+        }
+
+        /* --- Skills Section --- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .skill-card {
+            background-color: var(--bg-card);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            color: var(--text-card); /* カード内テキスト色を適用 */
+        }
+
+        .about-text p {
+            margin-bottom: 1rem;
+            color: var(--text-muted);
+        }
+
+        .about-highlight {
+            background-color: var(--bg-card);
+            padding: 20px;
+            border-left: 4px solid var(--accent);
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+            box-shadow: var(--shadow);
+        }
+
+        /* --- Skills Section --- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .skill-card {
+            background-color: var(--bg-card);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .skill-category-title {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .skill-list li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-start;
+            color: inherit; /* 親要素の色を継承 */
+            opacity: 0.9;
+        }
+
+        .skill-list i {
+            color: var(--accent);
+            margin-right: 10px;
+            margin-top: 5px;
+            width: 20px;
+        }
+        
+        .cert-list {
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .cert-list li::before {
+            content: '🏆';
+            margin-right: 8px;
+            font-size: 0.8rem;
+        }
+
+        /* --- Works Section --- */
+        .works-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .work-card {
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            color: var(--text-card); /* カード内テキスト色を適用 */
+        }
+
+        .work-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .work-img-container {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+            background-color: #ddd;
+        }
+
+        .work-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .work-card:hover .work-img-container img {
+            transform: scale(1.1);
+        }
+        
+        /* Placeholder for Work Images using SVG */
+        .placeholder-svg {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: bold;
+            font-size: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .work-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .work-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--primary); /* タイトルはメインカラーを使用 */
+        }
+
+        .work-category {
+            font-size: 0.85rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .work-desc {
+            font-size: 0.95rem;
+            color: inherit; /* 親のテキストカラーを継承 */
+            opacity: 0.8;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+
+        .work-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            background-color: var(--bg-body);
+            color: var(--primary);
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        /* --- Contact Section --- */
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--bg-card);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            color: var(--text-card); /* カード内テキスト色を適用 */
+        }
+
+        .contact-intro {
+            text-align: center;
+            margin-bottom: 30px;
+            color: inherit;
+            opacity: 0.8;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: inherit;
+        }
+
+        .contact-intro {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--text-muted);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-main);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc; /* 境界線を少し濃く */
+            border-radius: 6px;
+            background-color: #f9f9f9; /* フォーム背景を少しグレーに */
+            color: #333; /* 入力文字は常にダーク */
+            font-family: inherit;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 130, 155, 0.2);
+        }
+
+        .submit-btn {
+            width: 100%;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .submit-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .sns-links {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .sns-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #f0f0f0; /* 背景を明示的に指定 */
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            border: 1px solid #ddd;
+        }
+
+        .sns-icon:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: rotate(10deg);
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: var(--bg-card);
+            padding: 30px 20px;
+            text-align: center;
+            border-top: none;
+            margin-top: 50px;
+            color: var(--text-card);
+        }
+
+        .copyright {
+            color: inherit;
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        /* --- Animation --- */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--bg-card);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: var(--shadow);
+                text-align: center;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-cta {
+                flex-direction: column;
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .about-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .about-highlight {
+                text-align: left;
+            }
+
+            .profile-img-wrapper {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .contact-container {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">@猫叉堂</a>
+            
+            <nav class="nav-links" id="navLinks">
+                <a href="#hero">HOME</a>
+                <a href="#about">ABOUT</a>
+                <a href="#skills">SKILLS</a>
+                <a href="#works">WORKS</a>
+                <a href="#contact">CONTACT</a>
+            </nav>
+
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <button class="theme-toggle" id="themeToggle" aria-label="テーマ切り替え">
+                    <!-- デフォルトが暗いため、最初は太陽（明るくする）アイコンを表示 -->
+                    <i class="fas fa-sun"></i>
+                </button>
+                <button class="mobile-menu-btn" id="menuBtn" aria-label="メニューを開く">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="hero-content fade-in">
+            <div class="brand-name">
+                <div class="brand-row-1">
+                    <span class="brand-jp">＠猫叉堂</span>
+                    <span class="brand-en-small">PhantomCat,</span>
+                </div>
+                <div class="brand-row-2">PROJECT.</div>
+            </div>
+            <p class="hero-subtitle">想いを伝えるWEB制作</p>
+            <div class="hero-cta">
+                <a href="#works" class="btn btn-primary">実績を見る</a>
+                <a href="#contact" class="btn btn-outline">お問い合わせ</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="section-title fade-in">Who I Am</h2>
+        <div class="about-container fade-in">
+            <div class="profile-img-wrapper">
+                <div class="profile-bg-deco"></div>
+                <!-- Profile Illustration SVG -->
+                <svg class="profile-img" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="200" height="200" fill="#f0f4f8"/>
+                    <circle cx="100" cy="85" r="40" fill="#fac8a0"/> <!-- Face -->
+                    <path d="M60,180 Q100,220 140,180 L140,200 L60,200 Z" fill="#63829b"/> <!-- Clothes -->
+                    <path d="M60,80 Q100,20 140,80 Q150,120 130,140 Q100,160 70,140 Q50,120 60,80" fill="#333"/> <!-- Hair -->
+                    <circle cx="85" cy="80" r="3" fill="#333"/> <!-- Eye L -->
+                    <circle cx="115" cy="80" r="3" fill="#333"/> <!-- Eye R -->
+                    <path d="M95,100 Q100,105 105,100" stroke="#d58f6c" stroke-width="2" fill="none"/> <!-- Mouth -->
+                    <path d="M70,85 L130,85" stroke="#333" stroke-width="1.5" fill="none" opacity="0.5"/> <!-- Glasses top -->
+                    <circle cx="85" cy="85" r="12" stroke="#333" stroke-width="1.5" fill="rgba(255,255,255,0.3)"/> <!-- Glasses L -->
+                    <circle cx="115" cy="85" r="12" stroke="#333" stroke-width="1.5" fill="rgba(255,255,255,0.3)"/> <!-- Glasses R -->
+                </svg>
+            </div>
+            <div class="about-text">
+                <h3>はじめまして、<br>Webデザイナーの上野圭子です。</h3>
+                <p>20年以上、趣味でWebサイトの制作を行ってきましたが、その情熱が高じて現在はフリーランスとして活動しています。ただ作るだけでなく、「誰に」「何を」伝えたいのかを第一に考えます。</p>
+                
+                <div class="about-highlight">
+                    <strong><i class="fas fa-lightbulb" style="color: var(--accent);"></i> 強み：配色設計</strong><br>
+                    ただ綺麗なだけでない、心理的効果に基づいた配色設計が得意です。「信頼感を与える青」「購買意欲をそそる赤」など、目的に合わせた色使いでビジネスの課題解決をサポートします。
+                </div>
+
+                <p><i class="fas fa-heart" style="color: var(--accent);"></i> 趣味：街中の看板の配色分析、読書…は最近は老眼で遠ざかっておりますが、物語に触れることは大好きです。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <h2 class="section-title fade-in">My Skills</h2>
+        <div class="skills-grid fade-in">
+            <!-- Design Skills -->
+            <div class="skill-card">
+                <div class="skill-category-title">
+                    <i class="fas fa-paint-brush"></i> Design
+                </div>
+                <ul class="skill-list">
+                    <li><i class="fab fa-figma"></i> Figma / Adobe XD (WF・プロトタイプ)</li>
+                    <li><i class="fas fa-image"></i> 写真補正・バナー作成</li>
+                    <li><i class="fas fa-vector-square"></i> ロゴ・アイコン作成</li>
+                </ul>
+                <ul class="cert-list">
+                    <li>サーティファイ Photoshop クリエイター 能力検定 スタンダード</li>
+                    <li>サーティファイ Illustrator クリエイター 能力検定 スタンダード</li>
+                </ul>
+            </div>
+
+            <!-- Development Skills -->
+            <div class="skill-card">
+                <div class="skill-category-title">
+                    <i class="fas fa-code"></i> Development
+                </div>
+                <ul class="skill-list">
+                    <li><i class="fab fa-html5"></i> HTML5 (セマンティック)</li>
+                    <li><i class="fab fa-css3-alt"></i> CSS3 / SCSS (Flexbox, Grid, BEM)</li>
+                    <li><i class="fab fa-js"></i> JavaScript (DOM, Animation)</li>
+                    <li><i class="fab fa-wordpress"></i> WordPress (オリジナルテーマ)</li>
+                </ul>
+                <ul class="cert-list">
+                    <li>サーティファイ Web クリエイター能力検定エキスパート</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Works Section -->
+    <section id="works">
+        <h2 class="section-title fade-in">Selected Works</h2>
+        <div class="works-grid fade-in">
+            
+            <!-- Case 1 -->
+            <div class="work-card">
+                <div class="work-img-container" style="background-color: #dbe4e4;">
+                   <div class="placeholder-svg" style="color: #6a8585;">Corp. Site</div>
+                </div>
+                <div class="work-content">
+                    <div class="work-category">Corporate Website</div>
+                    <div class="work-title">株式会社テックスタイル</div>
+                    <p class="work-desc">信頼感を重視したグレイッシュグリーン基調のデザイン。レスポンシブ対応によりスマホからの問い合わせが120%増加。</p>
+                    <div class="work-tags">
+                        <span class="tag">HTML/CSS</span>
+                        <span class="tag">WordPress</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Case 2 -->
+            <div class="work-card">
+                <div class="work-img-container" style="background-color: #fce4ec;">
+                    <div class="placeholder-svg" style="color: #d81b60;">LP Design</div>
+                </div>
+                <div class="work-content">
+                    <div class="work-category">Landing Page</div>
+                    <div class="work-title">美容液「Lumiere」</div>
+                    <p class="work-desc">ターゲット層（30代女性）に響くゴールドとピンクの配色。FVの離脱率改善に貢献。</p>
+                    <div class="work-tags">
+                        <span class="tag">Photoshop</span>
+                        <span class="tag">LP</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Case 3 -->
+            <div class="work-card">
+                <div class="work-img-container" style="background-color: #fff3e0;">
+                    <div class="placeholder-svg" style="color: #ef6c00;">Cafe Site</div>
+                </div>
+                <div class="work-content">
+                    <div class="work-category">Store Website</div>
+                    <div class="work-title">カフェ「Sun & Beans」</div>
+                    <p class="work-desc">暖色系で居心地の良さを表現。メニューのシズル感を引き立てるレイアウト。</p>
+                    <div class="work-tags">
+                        <span class="tag">Figma</span>
+                        <span class="tag">HTML/SCSS</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2 class="section-title fade-in">Get In Touch</h2>
+        <div class="contact-container fade-in">
+            <p class="contact-intro">制作のご依頼、お見積もり、その他ご相談はお気軽にどうぞ。<br>2営業日以内に返信いたします。</p>
+            
+            <form onsubmit="event.preventDefault(); alert('お問い合わせありがとうございます。\n（デモサイトのため送信されません）');">
+                <div class="form-group">
+                    <label for="name">お名前</label>
+                    <input type="text" id="name" class="form-control" required placeholder="山田 花子">
+                </div>
+                <div class="form-group">
+                    <label for="email">メールアドレス</label>
+                    <input type="email" id="email" class="form-control" required placeholder="example@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="message">お問い合わせ内容</label>
+                    <textarea id="message" rows="5" class="form-control" required placeholder="ご自由にご記入ください"></textarea>
+                </div>
+                <button type="submit" class="submit-btn">送信する</button>
+            </form>
+
+            <div class="sns-links">
+                <a href="#" class="sns-icon" aria-label="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
+                <a href="#" class="sns-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="copyright">
+            &copy; 2026 @猫叉堂 PhantomCat, PROJECT. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script>
+        // --- Dark Mode Toggle ---
+        const themeToggle = document.getElementById('themeToggle');
+        const icon = themeToggle.querySelector('i');
+        const html = document.documentElement;
+
+        // Check local storage or system preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            html.setAttribute('data-theme', savedTheme);
+            updateIcon(savedTheme);
+        } 
+        // 初期配色の変更に伴い、システム設定の判定ロジックは一旦削除し、デフォルトをCSSの:root（ダーク）に委ねます
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            // dark属性がある時＝ロイヤルブルー（明るい）状態。無い時＝ダーク状態。
+            const newTheme = currentTheme === 'dark' ? '' : 'dark';
+            
+            if (newTheme) {
+                html.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+            } else {
+                html.removeAttribute('data-theme');
+                localStorage.removeItem('theme');
+            }
+            updateIcon(newTheme);
+        });
+
+        function updateIcon(theme) {
+            if (theme === 'dark') {
+                // theme="dark"（ロイヤルブルー/明るい）の時は、月（暗くする）を表示
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            } else {
+                // デフォルト（ダーク）の時は、太陽（明るくする）を表示
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            }
+        }
+
+        // --- Mobile Menu Toggle ---
+        const menuBtn = document.getElementById('menuBtn');
+        const navLinks = document.getElementById('navLinks');
+        const navItems = navLinks.querySelectorAll('a');
+
+        menuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            // Change icon
+            const menuIcon = menuBtn.querySelector('i');
+            if (navLinks.classList.contains('active')) {
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-times');
+            } else {
+                menuIcon.classList.remove('fa-times');
+                menuIcon.classList.add('fa-bars');
+            }
+        });
+
+        // Close mobile menu when clicking a link
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                menuBtn.querySelector('i').classList.remove('fa-times');
+                menuBtn.querySelector('i').classList.add('fa-bars');
+            });
+        });
+
+        // --- Intersection Observer for Animations ---
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target); // Only animate once
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(element => {
+            observer.observe(element);
+        });
+
+        // --- Smooth Scrolling for Anchor Links ---
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const headerOffset = 70;
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: "smooth"
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
